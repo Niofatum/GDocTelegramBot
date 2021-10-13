@@ -7,7 +7,16 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class GDocBotHandler extends BotHandler{
+
+    private String chatId;
+
+    public GDocBotHandler(){
+
+    }
 
     @Override
     public String getBotUsername() {
@@ -31,17 +40,30 @@ public class GDocBotHandler extends BotHandler{
         }
 
         String text = message.getText();
-        String chatId = message.getChatId().toString();
+        chatId = message.getChatId().toString();
+        sendMessageTimer(text,this.chatId,10);
 
-
-        SendMessage sm = new SendMessage();
-        sm.setText(text);
-        sm.setChatId(chatId);
-        try {
-            execute(sm);
-        } catch (TelegramApiException e) {
+       // SendMessage sm = new SendMessage();
+       // sm.setText(text);
+       // sm.setChatId(chatId);
+       // try {
+            //execute(sm);
+      //  } catch (TelegramApiException e) {
            // BotLogger.error("SEND", e.toString());
-        }
+      //  }
         return null;
+    }
+
+    private void sendMessageTimer(String message,String chatId,Integer period){
+        Timer timer = new Timer ();
+        TimerTask hourlyTask = new TimerTask () {
+            @Override
+            public void run () {
+                SendMessage sm = new SendMessage();
+                sm.setText(message);
+                sm.setChatId(chatId);
+            }
+        };
+        timer.schedule (hourlyTask, 0l, period);
     }
 }
