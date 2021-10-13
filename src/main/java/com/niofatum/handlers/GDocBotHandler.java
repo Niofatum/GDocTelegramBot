@@ -6,7 +6,6 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import org.telegram.telegrambots.meta.logging.BotLogger;
 
 public class GDocBotHandler extends BotHandler{
 
@@ -32,13 +31,16 @@ public class GDocBotHandler extends BotHandler{
         }
 
         String text = message.getText();
-        long chatId = message.getChatId();
+        String chatId = message.getChatId().toString();
 
-        SendMessage sm = new SendMessage(chatId, text);
+
+        SendMessage sm = new SendMessage();
+        sm.setText(text);
+        sm.setChatId(chatId);
         try {
             execute(sm);
         } catch (TelegramApiException e) {
-            BotLogger.error("SEND", e.toString());
+           // BotLogger.error("SEND", e.toString());
         }
         return null;
     }
