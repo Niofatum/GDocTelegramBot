@@ -1,0 +1,1 @@
+bot: java -jar build/libs/GDocTelegramBot-1.0-SNAPSHOT-all.jar

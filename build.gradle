@@ -1,0 +1,25 @@
+plugins {
+    id 'idea'
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.0.0'
+    id 'application'
+}
+
+group 'com.niofatum'
+version '1.0-SNAPSHOT'
+mainClassName = 'com.annimon.tgbotsmodule.Runner'
+sourceCompatibility = 16
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.annimon:tgbots-module:0.1'
+}
+
+shadowJar {
+    mergeServiceFiles()
+    exclude 'META-INF/*.DSA'
+    exclude 'META-INF/*.RSA'
+}
