@@ -15,7 +15,7 @@ public class GDocBotHandler extends BotHandler{
     private String chatId;
 
     public GDocBotHandler(){
-
+        new CommandsHandler();
     }
 
     @Override
@@ -43,14 +43,6 @@ public class GDocBotHandler extends BotHandler{
         chatId = message.getChatId().toString();
         sendMessageTimer(text,this.chatId,10);
 
-       // SendMessage sm = new SendMessage();
-       // sm.setText(text);
-       // sm.setChatId(chatId);
-       // try {
-            //execute(sm);
-      //  } catch (TelegramApiException e) {
-           // BotLogger.error("SEND", e.toString());
-      //  }
         return null;
     }
 
@@ -62,6 +54,10 @@ public class GDocBotHandler extends BotHandler{
                 SendMessage sm = new SendMessage();
                 sm.setText(message);
                 sm.setChatId(chatId);
+                try {
+                    execute(sm);
+                } catch (TelegramApiException e) {
+                }
             }
         };
         timer.schedule (hourlyTask, 0l, period);
